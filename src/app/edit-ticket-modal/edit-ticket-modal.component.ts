@@ -103,7 +103,7 @@ export class EditTicketModalComponent {
         }
         // If we succeeded, show success message
         else { 
-            submitButton.innerHTML = 'Success';
+            submitButton.innerHTML = 'Update Ticket';
             submitButton.disabled = false;
 
             // Reload Tickets and Hide Modal
