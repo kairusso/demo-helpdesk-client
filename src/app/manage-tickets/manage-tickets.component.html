@@ -1,0 +1,132 @@
+<!-- Modal to Edit the Ticket -->
+<app-edit-ticket-modal></app-edit-ticket-modal>
+
+<!-- Wrapper to ensure the footer is always at the bottom -->
+<div class="fullPageComponent">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="row">
+            <h4 class="title">Manage Helpdesk Tickets</h4>
+
+        <!-- New Ticket Table -->
+        <div class="row">
+            <div *ngIf="newTickets.length>0" class="col-md-12 overflowXAuto">
+                <h5 class="lightTitle">New Tickets</h5>
+                <table class="lightText table table-hover">
+                    <!-- Header Row -->
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                Submitted
+                            </th>
+                            <th scope="col">
+                                Name
+                            </th>
+                            <th scope="col">
+                                Email
+                            </th>
+                            <th scope="col">
+                            </th>
+                        </tr>
+                    </thead>
+                    <!-- Add Prediction Row -->
+                    <tr *ngFor="let newTicket of newTickets; index as i">
+                        <td>
+                            {{ newTicket.createdAt.toLocaleString() }}
+                        </td>
+                        <td>
+                            {{ newTicket.name }}
+                        </td>
+                        <td>
+                            {{ newTicket.email }}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" (click)="editNewTicket(i)">Update</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- In Progress Ticket Table -->
+        <div class="row">
+            <div *ngIf="inProgressTickets.length>0" class="col-md-12 overflowXAuto">
+                <h5 class="lightTitle">In Progress Tickets</h5>
+                <table class="lightText table table-hover">
+                    <!-- Header Row -->
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                Submitted
+                            </th>
+                            <th scope="col">
+                                Name
+                            </th>
+                            <th scope="col">
+                                Email
+                            </th>
+                            <th scope="col">
+                            </th>
+                        </tr>
+                    </thead>
+                    <!-- Add Prediction Row -->
+                    <tr *ngFor="let inProgressTicket of inProgressTickets; index as i">
+                        <td>
+                            {{ inProgressTicket.createdAt.toLocaleString() }}
+                        </td>
+                        <td>
+                            {{ inProgressTicket.name }}
+                        </td>
+                        <td>
+                            {{ inProgressTicket.email }}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" (click)="editInProgressTicket(i)">Update</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Resolved Ticket Table -->
+        <div class="row">
+            <div *ngIf="resolvedTickets.length>0" class="col-md-12 overflowXAuto">
+                <h5 class="lightTitle">Resolved Tickets</h5>
+                <table class="lightText table table-hover">
+                    <!-- Header Row -->
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                Submitted
+                            </th>
+                            <th scope="col">
+                                Name
+                            </th>
+                            <th scope="col">
+                                Email
+                            </th>
+                            <th scope="col">
+                            </th>
+                        </tr>
+                    </thead>
+                    <!-- Add Prediction Row -->
+                    <tr *ngFor="let resolvedTicket of resolvedTickets; index as i">
+                        <td>
+                            {{ resolvedTicket.createdAt.toLocaleString() }}
+                        </td>
+                        <td>
+                            {{ resolvedTicket.name }}
+                        </td>
+                        <td>
+                            {{ resolvedTicket.email }}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" (click)="editResolvedTicket(i)">Update</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

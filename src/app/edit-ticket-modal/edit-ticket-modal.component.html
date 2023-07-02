@@ -1,0 +1,92 @@
+<!-- Edit Tickets Modal -->
+<div class="modal fade" id="editTicketsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <!-- Header for Modal -->
+            <div class="modal-header">
+                <h5 class="modal-title">Update Ticket</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Body for Modal -->
+            <div class="modal-body">
+
+                <!-- Ticket Info -->
+                <div class="row marginT20">
+                    <div class="col-md-3">
+                        Submitted:<br>
+                        {{ clientTicket.createdAt.toLocaleString() }}
+                    </div>
+                    <div class="col-md-3">
+                        Name:<br>
+                        {{ clientTicket.name }}
+                    </div>
+                    <div class="col-md-3">
+                        Email:<br>
+                        {{ clientTicket.email }}
+                    </div>
+                </div>
+
+                <div class="row marginT20">
+                    <div class="col-md-12">
+                        Description:<br>
+                        {{ clientTicket.description }}
+                    </div>
+                </div>
+
+                <!-- Ticket Response -->
+                <form id="ticketResponseForm">
+                    <div class="row marginT20">
+
+                        <!-- Status Selection -->
+                        <div class="form-group col-md-4">
+                            <label for="statusSelect">Status:</label>
+                            <select id="statusSelect" name="statusSelect" class="form-select" [(ngModel)]="clientTicket.status">
+                                <option value="1">New</option>
+                                <option value="2">In Progress</option>
+                                <option value="3">Resolved</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row marginT20">
+
+                        <!-- Response Text Area -->
+                        <div class="form-group col-md-8">
+                            <label for="responseTextArea">Response*:</label>
+                            <textarea type="text" pattern="^[a-zA-Z0-9_ ':()#@!?.=|:;,]*$" class="form-control form-control-sm" rows="8"
+                                id="responseTextArea" maxlength="1000" [(ngModel)]="ticketResponse" name="responseTextArea" required>
+                            </textarea>
+
+                            <div class="invalid-feedback">Please enter valid text and limit your entry to 1000 characters.</div>
+                            
+                            <!-- Let User know how many characters they have left -->
+                            <div class="height20 rightText">
+                                <span class="subTitle" *ngIf="ticketResponse.length">
+                                    {{ 1000 - ticketResponse.length }} Character Left
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row marginT20">
+                        <div class="col-md-8 ">
+
+                            <!-- Warning Box -->
+                            <div *ngIf="errorMessage" class="alert alert-light margin10" role="alert">
+                                {{ errorMessage }}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Footer for Modal -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="hideModal()">Cancel</button>
+                <button type="button" class="btn btn-outline-primary" (click)="submitTicketResponse($event)">Update Ticket</button>
+            </div>
+        </div>
+    </div>
+</div>

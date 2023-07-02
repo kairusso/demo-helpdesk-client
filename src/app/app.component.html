@@ -1,0 +1,35 @@
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <!-- Add Branding (would usually be a fancy logo) -->
+    <a class="navbar-brand marginL20" routerLink="/">
+        Zealthy HelpDesk
+    </a>
+
+    <!-- Links for different Pages -->
+    <ul class="navbar-nav">
+
+        <!-- Create Ticket Link -->
+        <li class="nav-item marginR10">
+            <a class="nav-link" routerLink="/createTicket">Create Ticket</a>
+        </li>
+
+        <!-- Manage Ticket Link -->
+        <li class="nav-item marginR10">
+            <a class="nav-link" routerLink="/manageTickets">Manage Tickets</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Main Page -->
+<router-outlet></router-outlet>
+
+<!-- Footer -->
+<footer class="bg-dim">
+    <div class="container-fluid">
+        <div class="row paddingT20 paddingB30">
+            <div class="grayText centerText">
+                Zealthy © 2023 All Rights Reserved<br>
+            </div>
+        </div>
+    </div>
+</footer>

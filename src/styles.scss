@@ -1,0 +1,120 @@
+// Bootstrap Overrides
+
+$primary: #00531b; 
+$secondary: #8acda0;
+$light: #027c2a;
+$theme-colors: ( primary: $primary, secondary: $secondary, light: $light );
+
+@import "bootstrap";
+
+
+// Other Color Variables
+
+$backgroundColor: #fffaf2;
+$backgroundDim: #fff6e9;
+
+
+// Text Layout 
+
+.centerText { text-align: center; }
+
+.rightText { text-align: right; }
+
+
+// Text Style 
+
+.bold { font-weight: 600; }
+
+.grayText { color: gray; }
+
+
+// Text Sizing 
+
+.smallText { font-size: 14px; }
+
+
+// Text Classes 
+
+.title {
+    @extend .bold;
+    color: $primary;
+}
+
+.lightTitle {
+    @extend .bold;
+    color: $light;
+}
+
+.subTitle {
+    @extend .smallText;
+    @extend .grayText;
+    font-style: italic;
+}
+
+
+// Page Layout
+
+.fullPageComponent {
+    @extend .fullPageComponentNoPadding;
+    background-color: $backgroundColor;
+    
+    padding-top: 20px;
+    padding-bottom: 70px;
+}
+
+// So the footer isn't floating in the middle of the page, with white space below, calulcate:
+//      page height - header height - footer height
+// To create the min height for the page
+.fullPageComponentNoPadding { 
+    min-height: calc(100vh - 56px - 74px); 
+    background-color: $backgroundColor;
+}
+
+
+// Component Layout
+
+.flexContainerEnd { 
+    display: flex; 
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.width100 {
+    width: 100%;
+}
+
+
+// Background Styling
+
+.bg-default { background-color: $backgroundColor; }
+
+.bg-dim { background-color: $backgroundDim; }
+
+
+// Margin Classes
+
+.margin10 { margin: 10px; }
+
+.marginL20 { margin-left: 20px; }
+
+.marginT20 { margin-top: 20px; }
+
+.marginB10 { margin-bottom: 10px; }
+
+.marginR10 { margin-right: 10px; }
+
+// Padding Classes
+
+.padding10 { padding: 10px; }
+
+.paddingL10 { padding-left: 10px; }
+
+.paddingT20 { padding-top: 20px; }
+
+.paddingB30 { padding-bottom: 30px; }
+
+.paddingR10 { padding-right: 10px; }
+
+// Height Classes
+
+.height20 { height: 20px; }

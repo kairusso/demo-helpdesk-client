@@ -1,0 +1,85 @@
+<!-- Wrapper to ensure the footer is always at the bottom -->
+<div class="fullPageComponent">
+
+    <!-- New Ticket Container -->
+    <div *ngIf="!successfulSubmit" class="container">
+
+        <!-- Header and Page Descriptor -->
+        <div class="row">
+            <h4 class="title">Create Helpdesk Ticket</h4>
+            <span class="subTitle">Fields marked by * are required</span>
+        </div>
+
+        <!-- Start Form for new Ticket -->
+        <form id="newTicketForm">
+            <div class="row marginT20">
+
+                <!-- Name Entry Label and Input -->
+                <div class="form-group col-md-4">
+                    <label for="nameInput">Name*:</label>
+                    <input type="text" pattern="^[a-zA-Z0-9_ '\-]*" class="form-control" id="nameInput"
+                        maxlength="200" [(ngModel)]="newTicket.name" name="nameInput" required>
+
+                    <div class="invalid-feedback">
+                        <small class="form-text text-muted">
+                            Please avoid using characters that aren't letters, numbers, spaces, or underscores.
+                        </small>
+                    </div>
+                </div>
+
+                <!-- Email Entry Label and Input -->
+                <div class="form-group col-md-4">
+                    <label for="emailInput">Email*:</label>
+                    <input class="form-control" id="emailInput" type="email" [(ngModel)]="newTicket.email"
+                        name="emailInput" required />
+
+                    <div class="invalid-feedback">Please enter a valid Email Address.</div>
+                </div>
+            </div>
+
+            <div class="row marginT20">
+
+                <!-- Description Text Area -->
+                <div class="form-group col-md-8">
+                    <label for="descriptionTextArea">Description*:</label>
+                    <textarea type="text" pattern="^[a-zA-Z0-9_ ':()#@!?.=|:;,]*$" class="form-control form-control-sm" rows="8"
+                        id="descriptionTextArea" maxlength="1000" [(ngModel)]="newTicket.description" name="descriptionTextArea" required>
+                    </textarea>
+
+                    <div class="invalid-feedback">Please enter valid text and limit your entry to 1000 characters.</div>
+                    
+                    <!-- Let User know how many characters they have left -->
+                    <div class="height20 rightText">
+                        <span class="subTitle" *ngIf="newTicket.description.length">
+                            {{ 1000 - newTicket.description.length }} Character Left
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row marginT20">
+                <div class="col-md-8 ">
+
+                    <!-- Warning Box -->
+                    <div *ngIf="errorMessage" class="alert alert-light margin10" role="alert">
+                        {{ errorMessage }}
+                    </div>
+		            
+
+                    <!-- Submit Ticket -->
+                    <div class="flexContainerEnd">
+                        <button type="submit" class="btn btn-primary" (click)="submitTicket($event)">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Submission Confirmation Container -->
+    <div *ngIf="successfulSubmit" class="container">
+        <div class="row marginT20 centerText">
+            <h4 class="title">Your Ticket has been Successfully Submitted</h4>
+            <span>We'll be in contact within 24h!</span>
+        </div>
+    </div>
+</div>
