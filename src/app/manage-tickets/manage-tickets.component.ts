@@ -80,12 +80,17 @@ export class ManageTicketsComponent implements OnInit, AfterViewInit {
 
     // MARK: SERVER INTERACTION 
 
+    /// Property for Client to Hide / Show Loading Icon
+    loadingTickets = false;
+
     /**
      * Load All Tickets from Server
      */
     async loadTickets() {
         // Load from DB
+        this.loadingTickets = true;
         let response: TicketLoadingResponse = await this.getTickets().catch((err) => { console.log(err) }) as any;
+        this.loadingTickets = false;
 
         // Check if we were successful
         if (!response || !response.newTickets || !response.inProgressTickets || !response.resolvedTickets) {

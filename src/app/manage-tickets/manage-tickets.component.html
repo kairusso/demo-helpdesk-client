@@ -3,7 +3,17 @@
 
 <!-- Wrapper to ensure the footer is always at the bottom -->
 <div class="fullPageComponent">
-    <div class="container">
+    <div *ngIf="loadingTickets" class="container">
+        <!-- Row For Loading Spinner -->
+        <div id="loadingSpinnerRow" class="row marginT20">
+            <div class="d-flex align-items-center">
+                <div class="spinner-border ml-auto spinningIcon" role="status" aria-hidden="true"></div>
+                <h3 class="title">&nbsp;&nbsp;&nbsp;Loading Tickets...</h3>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!loadingTickets" class="container">
 
         <!-- Header -->
         <div class="row">
