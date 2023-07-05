@@ -72,11 +72,11 @@ export class CreateTicketComponent {
         submitButton.disabled = true;
 
         // Make Server Call
-        let response: any = await this.submitTicketPost(this.newTicket);
+        let response: any = await this.submitTicketPost(this.newTicket).catch((err) => { console.log(err) });
 
         // If we failed show error
         if (!response || response.result !== TicketSubmitResult.Success) {
-            this.errorMessage = getErrorMessage(response.result ?? TicketSubmitResult.UnknownError);
+            this.errorMessage = getErrorMessage(response && response.result ? response.result : TicketSubmitResult.UnknownError);
 
             submitButton.innerHTML = 'Try Again';
             submitButton.disabled = false;
@@ -95,6 +95,6 @@ export class CreateTicketComponent {
      * @returns Promise of HTTP Post
      */
     submitTicketPost(ticket: TicketSubmission): Promise<any> { 
-        return this.http.post(environment.serverURL + 'submitTicket', ticket).toPromise(); 
+        return this.http.post(environment.serverURL + 'submitTicket', ticket).toPromise().catch((err) => { console.log(err) }); 
     }
 }

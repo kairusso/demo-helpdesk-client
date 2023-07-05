@@ -45,6 +45,11 @@ $backgroundDim: #fff6e9;
     color: $light;
 }
 
+.secondaryTitle {
+    @extend .bold;
+    color: $secondary;
+}
+
 .subTitle {
     @extend .smallText;
     @extend .grayText;
@@ -100,6 +105,7 @@ $backgroundDim: #fff6e9;
 .marginT20 { margin-top: 20px; }
 
 .marginB10 { margin-bottom: 10px; }
+.marginB20 { margin-bottom: 20px; }
 
 .marginR10 { margin-right: 10px; }
 

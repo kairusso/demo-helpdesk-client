@@ -42,7 +42,7 @@
                 <!-- Description Text Area -->
                 <div class="form-group col-md-8">
                     <label for="descriptionTextArea">Description*:</label>
-                    <textarea type="text" pattern="^[a-zA-Z0-9_ ':()#@!?.=|:;,]*$" class="form-control form-control-sm" rows="8"
+                    <textarea type="text" pattern="^[a-zA-Z0-9_ ':()#@!?.=|:;,\-]*$" class="form-control form-control-sm" rows="8"
                         id="descriptionTextArea" maxlength="1000" [(ngModel)]="newTicket.description" name="descriptionTextArea" required>
                     </textarea>
 

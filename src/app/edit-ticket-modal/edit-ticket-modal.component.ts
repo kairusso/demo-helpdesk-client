@@ -24,6 +24,9 @@ declare let $: Function;
 })
 export class EditTicketModalComponent {
 
+    // Keep Pointer for Client Code
+    ticketStatusEnum = TicketStatus;
+
     // Init View
     constructor(private http: HttpClient) { }
 
@@ -40,6 +43,7 @@ export class EditTicketModalComponent {
 
         'createdAt':	    new Date(),
         'status':			TicketStatus.New,
+        'statusHistory':    [],
     };
 
     // Edit Ticket Response
@@ -92,11 +96,11 @@ export class EditTicketModalComponent {
             'newStatus':    this.clientTicket.status,
             'response':     this.ticketResponse,
         }
-        let response: any = await this.submitResponsePost(body);
+        let response: any = await this.submitResponsePost(body).catch((err) => { console.log(err) });
 
         // If we failed show error
         if (!response || response.result !== TicketSubmitResult.Success) {
-            this.errorMessage = getErrorMessage(response.result ?? TicketSubmitResult.UnknownError);
+            this.errorMessage = getErrorMessage(response && response.result ? response.result : TicketSubmitResult.UnknownError);
 
             submitButton.innerHTML = 'Try Again';
             submitButton.disabled = false;
@@ -118,6 +122,6 @@ export class EditTicketModalComponent {
      * @returns Promise of HTTP Post
      */
     submitResponsePost(body: any): Promise<any> { 
-        return this.http.post(environment.serverURL + 'submitTicketResponse', body).toPromise(); 
+        return this.http.post(environment.serverURL + 'submitTicketResponse', body).toPromise().catch((err) => { console.log(err) }); 
     }
 }

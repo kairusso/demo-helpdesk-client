@@ -15,21 +15,24 @@ export interface ClientTicket extends TicketSubmission {
 
     createdAt:      Date,
     status:         TicketStatus,
+	statusHistory:	StatusUpdate[],
+}
+
+/**
+ * Status Update
+ * Functions as a snapshot in the Status History
+ */
+export interface StatusUpdate {
+    timestamp:      Date,
+    status:         TicketStatus,
+    detail:    		string,
 }
 
 /// Ticket Status
 export enum TicketStatus {
     New = 1,
 	InProgress = 2,
-	Resovled = 3,
-}
-
-/// Ticket Loading Filter
-export interface TicketLoadingFilter {
-    loadNew:                boolean,
-    loadInProgress:         boolean,
-    loadResolved:           boolean,
-    loadResolvedLimit:      number | null,
+	Resolved = 3,
 }
 
 /// Ticket Loading Response
@@ -55,12 +58,12 @@ export class ManageTicketsComponent implements OnInit, AfterViewInit {
 
     // Start loading the Tickets here
     ngOnInit() {
-        this.loadAllTickets();
+        this.loadTickets();
     }
 
     // Set pointer on child view here
     ngAfterViewInit() {
-        this.editTicketModal.reloadTickets = () => { this.loadAllTickets(); }
+        this.editTicketModal.reloadTickets = () => { this.loadTickets(); }
     }
 
     // MARK: GLOBALS 
@@ -80,26 +83,9 @@ export class ManageTicketsComponent implements OnInit, AfterViewInit {
     /**
      * Load All Tickets from Server
      */
-    async loadAllTickets() {
-        // Create Default Filter
-        let filter: TicketLoadingFilter = {
-            'loadNew':                true,
-            'loadInProgress':         true,
-            'loadResolved':           true,
-            'loadResolvedLimit':      10,
-        }
-
-        // Load tickets
-        this.loadTickets(filter);
-    }
-
-    /**
-     * Load Select Tickets from Server
-     * @param filter Ticket Loading Filter
-     */
-    async loadTickets(filter: TicketLoadingFilter) {
+    async loadTickets() {
         // Load from DB
-        let response: TicketLoadingResponse = await this.loadTicketsPost(filter) as any;
+        let response: TicketLoadingResponse = await this.getTickets().catch((err) => { console.log(err) }) as any;
 
         // Check if we were successful
         if (!response || !response.newTickets || !response.inProgressTickets || !response.resolvedTickets) {
@@ -108,26 +94,22 @@ export class ManageTicketsComponent implements OnInit, AfterViewInit {
         }
 
         // Set Globals
-        if (filter.loadNew) { 
-            this.newTickets = response.newTickets; 
-            this.formatClientTickets(this.newTickets);
-        }
-        if (filter.loadInProgress) { 
-            this.inProgressTickets = response.inProgressTickets; 
-            this.formatClientTickets(this.inProgressTickets);
-        }
-        if (filter.loadResolved) { 
-            this.resolvedTickets = response.resolvedTickets; 
-            this.formatClientTickets(this.resolvedTickets);
-        }
+        this.newTickets = response.newTickets; 
+        this.formatClientTickets(this.newTickets);
+
+        this.inProgressTickets = response.inProgressTickets; 
+        this.formatClientTickets(this.inProgressTickets);
+
+        this.resolvedTickets = response.resolvedTickets; 
+        this.formatClientTickets(this.resolvedTickets);
     }
 
     /**
      * Create Promise for loading Tickets from Server
-     * @returns Promise of HTTP Post
+     * @returns Promise of HTTP Get
      */
-    loadTicketsPost(filter: TicketLoadingFilter): Promise<any> { 
-        return this.http.post(environment.serverURL + 'loadTickets', filter).toPromise(); 
+    getTickets(): Promise<any> { 
+        return this.http.get(environment.serverURL + 'getTickets').toPromise().catch((err) => { console.log(err) }); 
     }
 
 
@@ -180,6 +162,10 @@ export class ManageTicketsComponent implements OnInit, AfterViewInit {
     formatClientTickets(tickets: ClientTicket[]) {
         for(let ticket of tickets) {
             ticket.createdAt = new Date(ticket.createdAt);
+
+            for(let statusUpdate of ticket.statusHistory) {
+                statusUpdate.timestamp = new Date(statusUpdate.timestamp);
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ function getErrorMessage(result: TicketSubmitResult): string {
             return 'The Submission was Successful.'
         }
         default: {
-            return 'An Unknown Error occured, please try again later. Or submit a HelpDesk Ticket (haha?)'
+            return 'An Unknown Error occured, please try again later.'
         }
     }
 }

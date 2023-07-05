@@ -47,6 +47,9 @@
                     </tr>
                 </table>
             </div>
+            <div *ngIf="newTickets.length < 1" class="col-md-12">
+                <h5 class="secondaryTitle">No New Tickets</h5>
+            </div>
         </div>
 
         <!-- In Progress Ticket Table -->
@@ -87,6 +90,9 @@
                     </tr>
                 </table>
             </div>
+            <div *ngIf="inProgressTickets.length < 1" class="col-md-12">
+                <h5 class="secondaryTitle">No In Progress Tickets</h5>
+            </div>
         </div>
 
         <!-- Resolved Ticket Table -->
@@ -126,6 +132,9 @@
                         </td>
                     </tr>
                 </table>
+            </div>
+            <div *ngIf="resolvedTickets.length < 1" class="col-md-12">
+                <h5 class="secondaryTitle">No Resolved Tickets</h5>
             </div>
         </div>
     </div>

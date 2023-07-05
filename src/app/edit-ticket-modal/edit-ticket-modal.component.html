@@ -55,7 +55,7 @@
                         <!-- Response Text Area -->
                         <div class="form-group col-md-8">
                             <label for="responseTextArea">Response*:</label>
-                            <textarea type="text" pattern="^[a-zA-Z0-9_ ':()#@!?.=|:;,]*$" class="form-control form-control-sm" rows="8"
+                            <textarea type="text" pattern="^[a-zA-Z0-9_ ':()#@!?.=|:;,\-]*$" class="form-control form-control-sm" rows="8"
                                 id="responseTextArea" maxlength="1000" [(ngModel)]="ticketResponse" name="responseTextArea" required>
                             </textarea>
 
@@ -80,7 +80,30 @@
                         </div>
                     </div>
                 </form>
+
+                <!-- Ticket Log -->
+                <div *ngIf="clientTicket.statusHistory.length" class="col-md-12">
+                    <h6 class="lightTitle">Support Log:</h6>
+                </div>
+                <div *ngFor="let statusUpdate of clientTicket.statusHistory; index as i" class="row marginB20">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>{{ ticketStatusEnum[statusUpdate.status] }}</h6>
+                        </div>
+                        <div class="col-md-6">
+                            {{ statusUpdate.timestamp.toLocaleString() }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="paddingL10">{{ statusUpdate.detail }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            
 
             <!-- Footer for Modal -->
             <div class="modal-footer">
